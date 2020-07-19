@@ -1,23 +1,34 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+const User = require("./models/user");
 
 const app = express();
+
+const db = require("./config/keys").mongoURI;
+
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.json("Hello amazon clone");
-});
+const port = process.env.PORT || 3000;
 
-app.post("", (req, res) => {
-  console.log(req.body);
-  res.json("request accepted");
-});
+const productRoutes = require("./routes/product");
+const categoryRoutes = require("./routes/category");
+const ownerRoutes = require("./routes/owner");
 
-app.listen(3000, (err) => {
+app.use("/api", productRoutes);
+app.use("/api", categoryRoutes);
+app.use("/api", ownerRoutes);
+
+app.listen(port, (err) => {
   if (err) {
     console.log();
   } else {
