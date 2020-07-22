@@ -7,14 +7,16 @@ router.post("/products", async (req, res) => {
   try {
     let product = new Product();
 
-    //category: req.body.category,
-    //owner: req.body.owner,
+    console.log(req.body);
+
+    //product.categoryID = req.body.categoryID;
+    //prodcut.ownerID = req.body.ownerID;
     product.title = req.body.title;
     product.description = req.body.description;
     product.photo = req.body.photo;
     product.price = req.body.price;
     product.stockQuantity = req.body.stockQuantity;
-    //rating: req.body.rating;
+    //product.rating = req.body.rating;
 
     await product.save();
 
@@ -27,7 +29,7 @@ router.post("/products", async (req, res) => {
 //Get get all products
 router.get("/products", async (req, res) => {
   try {
-    let products = await Product.find();
+    let products = await Product.find().populate("owner category").exec();
 
     res.json({ success: true, products: products });
   } catch (err) {
@@ -38,7 +40,9 @@ router.get("/products", async (req, res) => {
 //Get get a single product
 router.get("/products/:id", async (req, res) => {
   try {
-    let product = await Product.findOne({ _id: req.params.id });
+    let product = await Product.findOne({ _id: req.params.id })
+      .populate("owner category")
+      .exec();
 
     res.json({ success: true, product: product });
   } catch (err) {
