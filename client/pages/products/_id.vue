@@ -6,7 +6,9 @@
         <ul class="a-unordered-list a-horizontal a-size-small">
           <li>
             <span class="a-list-item">
-              <a href class="a-link-normal a-color-tertiary">{{product.category.type}}</a>
+              <a href class="a-link-normal a-color-tertiary">
+                {{ product.category.type }}
+              </a>
             </span>
           </li>
           <li>
@@ -14,7 +16,9 @@
           </li>
           <li>
             <span class="a-list-item">
-              <a href class="a-link-normal a-color-tertiary">{{product.title}}</a>
+              <a href class="a-link-normal a-color-tertiary">
+                {{ product.title }}
+              </a>
             </span>
           </li>
         </ul>
@@ -40,14 +44,18 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
                       <div class="smallAuthorImageContainer">
                         <a href>
-                          <img :src="product.owner.photo" alt class="img-fluid" />
+                          <img
+                            :src="product.owner.photo"
+                            alt
+                            class="img-fluid"
+                          />
                         </a>
                       </div>
                     </div>
 
                     <div class="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-3">
                       <div class="authorNameCol">
-                        <a href>{{product.owner.name}}</a>
+                        <a href>{{ product.owner.name }}</a>
                       </div>
                     </div>
 
@@ -72,7 +80,7 @@
             <div class="centerCol">
               <div class="titleDiv">
                 <h1 class="productTitle">
-                  <span class="largeTitle">{{product.title}}</span>
+                  <span class="largeTitle">{{ product.title }}</span>
                   <span class="smallTitle">Paperback</span>
                 </h1>
               </div>
@@ -80,21 +88,58 @@
               <div class="bylineinfo">
                 by
                 <a href class="authorName">
-                  {{product.owner.name}}
+                  {{ product.owner.name }}
                   <i
                     class="fas fa-chevron-down"
                     style="font-size: 8px !important; color: #555 !important"
                   ></i>
-                </a> (Author)
+                </a>
+                (Author)
               </div>
-              <div class="reviewGroup"></div>
+              <div class="reviewGroup">
+                <no-ssr>
+                  <star-rating
+                    :rating="product.averageRating"
+                    :show-rating="false"
+                    :glow="1"
+                    :border-width="1"
+                    :rounded-corners="true"
+                    :read-only="true"
+                    :star-size="18"
+                    :star-points="[
+                      23,
+                      2,
+                      14,
+                      17,
+                      0,
+                      19,
+                      10,
+                      34,
+                      7,
+                      50,
+                      23,
+                      43,
+                      38,
+                      50,
+                      36,
+                      34,
+                      46,
+                      19,
+                      31,
+                      17
+                    ]"
+                  ></star-rating>
+                </no-ssr>
+              </div>
               <hr style="margin-top: 10px" />
 
               <div class="mediaMatrix">
                 <div class="formats">
                   <a href class="link-expander">
                     >
-                    <span class="tmmShowPrompt">See all 18 formats and editions</span>
+                    <span class="tmmShowPrompt"
+                      >See all 18 formats and editions</span
+                    >
                   </a>
                   <ul>
                     <li class="swatchElement" style="width: 117px">
@@ -145,7 +190,8 @@
                           <a href class="a-size-mini">
                             <span class="kcpAppBox">
                               <span class="a-decarative">
-                                <span class="a-text-bold">Free App</span> with your Audible trial
+                                <span class="a-text-bold">Free App</span> with
+                                your Audible trial
                               </span>
                             </span>
                           </a>
@@ -170,7 +216,9 @@
               </div>
 
               <div class="bookDescription">
-                <div class="bookDescriptionInner">{{product.description}}</div>
+                <div class="bookDescriptionInner">
+                  {{ product.description }}
+                </div>
               </div>
 
               <div class="aboutEbooksFeature">
@@ -199,7 +247,11 @@
                   <div class="clearfix">
                     <div class="float-left">
                       <form>
-                        <input type="radio" name="radio-group checked" id="test1" />
+                        <input
+                          type="radio"
+                          name="radio-group checked"
+                          id="test1"
+                        />
                         <label for="test1">Buy Now</label>
                       </form>
                     </div>
@@ -207,7 +259,8 @@
                     <div class="float-right">
                       <span
                         class="a-size-medium a-color-price offer-pricce a-text-normal"
-                      >${{product.price}}</span>
+                        >${{ product.price }}</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -236,25 +289,44 @@
                   <div class="a-section a-spacing-none">
                     <span class="a-size-medium a-color-success">In Stock</span>
                   </div>
-                  <div class="a-section a-spacing-mini">Ships from and sold by Amazon.com</div>
+                  <div class="a-section a-spacing-mini">
+                    Ships from and sold by Amazon.com
+                  </div>
                 </div>
 
                 <div class="a-section">
-                  <div class="a-button-stack">
-                    <span class="a-spacing-small a-button-primary a-button-icon">
+                  <div
+                    class="a-button-stack"
+                    @click="addProductToCart(product)"
+                  >
+                    <span
+                      class="a-spacing-small a-button-primary a-button-icon"
+                    >
                       <span class="a-button-inner">
                         <i class="a-icon a-icon-cart"></i>
-                        <input type="submit" name="submit.add-to-cart" class="a-button-input" value />
+                        <input
+                          type="submit"
+                          name="submit.add-to-cart"
+                          class="a-button-input"
+                          value
+                        />
                         <span class="a-button-text">Add to Cart</span>
                       </span>
                     </span>
                   </div>
 
                   <div class="a-button-stack">
-                    <span class="a-spacing-small a-button-primary a-button-icon">
+                    <span
+                      class="a-spacing-small a-button-primary a-button-icon"
+                    >
                       <span class="a-button-inner">
                         <i class="a-icon a-icon-buynow"></i>
-                        <input type="submit" name="submit.add-to-cart" class="a-button-input" value />
+                        <input
+                          type="submit"
+                          name="submit.add-to-cart"
+                          class="a-button-input"
+                          value
+                        />
                         <span class="a-button-text">Buy Now</span>
                       </span>
                     </span>
@@ -294,7 +366,9 @@
                       </form>
                     </div>
                     <div class="float-right">
-                      <span class="a-color-base offer-price a-text-normal">${{product.price}}</span>
+                      <span class="a-color-base offer-price a-text-normal"
+                        >${{ product.price }}</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -332,33 +406,56 @@
                 <div class="col-md-10 col-sm-8 col-8 pl-0">
                   <div class="mainContent">
                     <h3>Biography</h3>
-                    <div id="auhorBio">{{product.owner.about}}</div>
+                    <div id="auhorBio">{{ product.owner.about }}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <ReviewSection :product="product" :reviews="reviews"></ReviewSection>
       </div>
     </div>
   </main>
 </template>
 <script>
+import ReviewSection from "~/components/ReviewSection";
+import StarRating from "vue-star-rating";
+import { mapActions } from "vuex";
+
 export default {
+  components: {
+    ReviewSection,
+    StarRating
+  },
+
   async asyncData({ $axios, params }) {
     try {
-      let response = await $axios.$get(
+      let singleProduct = $axios.$get(
         `http://localhost:3000/api/products/${params.id}`
       );
 
-      console.log(response);
+      let reviews = $axios.$get(
+        `http://localhost:3000/api/reviews/${params.id}`
+      );
+
+      const [productResponse, reviewsResponse] = await Promise.all([
+        singleProduct,
+        reviews
+      ]);
 
       return {
-        product: response.product
+        product: productResponse.product,
+        reviews: reviewsResponse.reviews
       };
     } catch (err) {
       console.log(err);
     }
+  },
+
+  methods: {
+    ...mapActions(["addProductToCart"])
   }
 };
 </script>
